@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PageRoutes from "./PageRoutes";
-import { PokemonStorage } from "./PageRoutes";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "./index.css";
 
