@@ -4,17 +4,17 @@ body {
 
 @media (max-width: 575px) {
   html {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 @media (min-width: 576px) and (max-width: 767px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
   html {
-    font-size: 16px;
+    font-size: 17px;
   }
 }
 @media (min-width: 992px) {
@@ -48,6 +48,34 @@ a {
   border: 1px solid red;
 }
 
+.pokemonDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.imageContainer {
+  width: 70vw;
+}
+
+@media (min-width: 992px) {
+  .pokemonDetailsContainer {
+    flex-direction: row;
+    padding: 10px 5vw;
+  }
+
+  .imageContainer {
+    flex: 1 1 auto;
+    width: unset;
+  }
+
+  .detailsContainer {
+    flex: 1.5;
+  }
+}
+
 .cardsContainer {
   display: flex;
   flex-direction: column;
@@ -65,18 +93,24 @@ a {
 }
 
 .cardContainer:hover {
-  border: 3px solid black;
+  background-color: burlywood;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   .cardsContainer {
-    flex-direction: row;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
   }
-  .cardContainer {
-    flex: 1;
+  /* .cardContainer {
+  } */
+}
+
+.sprite {
+  width: 100%;
+}
+/* @media (min-width: 768px) {
+  .sprite {
+    width: 30%;
   }
 } */

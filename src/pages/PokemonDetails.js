@@ -42,23 +42,24 @@ function PokemonDetails() {
 
   const { id, name, moves, types, sprites } = data.pokemon;
   return (
-    <div className="container">
-      <h2>{name}</h2>
-      <h5>#{id}</h5>
-      <img src={sprites.front_default}></img>
-      <button onClick={catchPokemon}>CATCH!</button>
-      {success && <span>SUCCESS</span>}
-      <h5>Pokemon Type:</h5>
-      <div>
-        {types.map((type) => {
-          return <p key={type.type.name}>{type.type.name}</p>;
-        })}
+    <div className="pokemonDetailsContainer">
+      <div className="imageContainer">
+        <img src={sprites.front_default} className="sprite" alt="sprite"></img>
       </div>
-      <h5>Pokemon Moves:</h5>
-      <div>
-        {moves.map((move) => {
-          return <p key={move.move.name}>{move.move.name}</p>;
-        })}
+      <div className="detailsContainer">
+        <h2>{name}</h2>
+        <h5>#{id}</h5>
+        <button onClick={catchPokemon}>CATCH!</button>
+        {success && <span>SUCCESS</span>}
+        <h5>Pokemon Type:</h5>
+        <div>
+          {/* {types.map((type) => {
+            return <span key={type.type.name}>{type.type.name}, </span>;
+          })} */}
+          {types.map((type) => type.type.name).join(", ")}
+        </div>
+        <h5>Pokemon Moves:</h5>
+        <div>{moves.map((move) => move.move.name).join(", ")}</div>
       </div>
     </div>
   );

@@ -5,10 +5,11 @@ function Card({ image, name, id }) {
   return (
     <Link to={`/${name}`}>
       <div className="cardContainer">
-        <img src={image}></img>
+        <img src={image} alt="pokeImg"></img>
         <div>
           <p>{name}</p>
           <p>#{id}</p>
+          {/* <p>caught</p> */}
         </div>
       </div>
     </Link>
