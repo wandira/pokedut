@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import "./main.css";
 
 import { useQuery, gql } from "@apollo/client";
+
+import Card from "../components/Card";
 
 const POKEMON_LIST = gql`
   query pokemonlist {
@@ -27,13 +28,18 @@ function PokemonList() {
   return (
     <div className="container">
       <p>Pokemon List</p>
-      {list.map((pokemon) => {
-        return (
-          <div key={pokemon.id}>
-            <Link to={`/${pokemon.name}`}>{`${pokemon.name}`}</Link>
-          </div>
-        );
-      })}
+      <div class="cardsContainer">
+        {list.map((pokemon) => {
+          return (
+            <Card
+              key={pokemon.id}
+              image={pokemon.image}
+              name={pokemon.name}
+              id={pokemon.id}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

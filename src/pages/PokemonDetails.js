@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import "./main.css";
 
 import { useQuery, gql } from "@apollo/client";
+import { useState } from "react";
 
 const POKEMON = gql`
   query pokemon($name: String!) {
@@ -30,16 +31,23 @@ function PokemonDetails() {
   const { loading, error, data } = useQuery(POKEMON, {
     variables: { name: pokemonName },
   });
+  const [success, setSuccess] = useState(false);
 
   if (loading) return <span>LOADING.......</span>;
   if (error) return <span>ERROR FETCHING POKEMON DETAILS</span>;
+
+  function catchPokemon() {
+    setSuccess(Math.random() < 0.5);
+  }
 
   const { id, name, moves, types, sprites } = data.pokemon;
   return (
     <div className="container">
       <h2>{name}</h2>
-      <h5>Pokemon Id: {id}</h5>
+      <h5>#{id}</h5>
       <img src={sprites.front_default}></img>
+      <button onClick={catchPokemon}>CATCH!</button>
+      {success && <span>SUCCESS</span>}
       <h5>Pokemon Type:</h5>
       <div>
         {types.map((type) => {
