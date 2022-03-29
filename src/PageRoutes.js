@@ -14,7 +14,7 @@ const PageRoutes = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<PokemonList />} />
-        <Route path="/:pokemonId" element={<PokemonDetails />} />
+        <Route path="/:pokemonName" element={<PokemonDetails />} />
         <Route path="/mypokemon" element={<MyPokemon />} />
       </Routes>
     </BrowserRouter>

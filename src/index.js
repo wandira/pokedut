@@ -5,10 +5,19 @@ import "./index.css";
 import PageRoutes from "./PageRoutes";
 // import reportWebVitals from "./reportWebVitals";
 
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "https://graphql-pokeapi.graphcdn.app/",
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <PageRoutes />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <PageRoutes />
+    </React.StrictMode>
+  </ApolloProvider>,
   document.getElementById("root")
 );
 
