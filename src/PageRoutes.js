@@ -10,33 +10,48 @@ import MyPokemon from "./pages/MyPokemon";
 
 //SHARED CONTEXT, PERSIST TO LOCAL STORAGE
 import { createContext, useEffect, useMemo, useState } from "react";
-export const PokemonStorage = createContext();
+export const MyPokemonStorage = createContext();
+
+const charoDetails = {
+  name: "charmander",
+  id: 4,
+  image:
+    "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+};
 
 const PageRoutes = () => {
-  const [greet, setGreet] = useState({ hi: "babibu" }); //context setcontext
-  const value = useMemo(() => ({ greet, setGreet }), [greet]);
+  const [myPokemons, setMyPokemons] = useState(
+    new Map([["charoo", charoDetails]])
+  );
 
+  //RUN ONLY ONCE AFTER RENDER, PREFILL FROM LOCALSTORAGE
   useEffect(() => {
-    const data = localStorage.getItem("pokedut1");
+    const data = localStorage.getItem("pokedut6");
     if (data) {
-      setGreet(JSON.parse(data));
+      console.log("update state");
+      setMyPokemons(new Map(JSON.parse(data)));
     }
   }, []);
 
+  //UPDATES LOCALSTORAGE EVERYTIME myPokemons CHANGES
   useEffect(() => {
-    localStorage.setItem("pokedut1", JSON.stringify(greet));
+    console.log("update storage");
+    localStorage.setItem("pokedut6", JSON.stringify([...myPokemons]));
   });
+
+  //THE VALUE THAT WILL BE PASSED THROUGH CONTEXT
+  const value = useMemo(() => ({ myPokemons, setMyPokemons }), [myPokemons]);
 
   return (
     <BrowserRouter>
       <Navbar />
-      <PokemonStorage.Provider value={value}>
+      <MyPokemonStorage.Provider value={value}>
         <Routes>
           <Route path="/" element={<PokemonList />} />
           <Route path="/:pokemonName" element={<PokemonDetails />} />
           <Route path="/mypokemon" element={<MyPokemon />} />
         </Routes>
-      </PokemonStorage.Provider>
+      </MyPokemonStorage.Provider>
     </BrowserRouter>
   );
 };

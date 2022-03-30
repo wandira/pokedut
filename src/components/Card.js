@@ -1,15 +1,39 @@
-import React from "react";
+import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 
-function Card({ image, name, id }) {
+import { MyPokemonStorage } from "../PageRoutes";
+
+function Card({ image, name, id, nickname = null }) {
+  const { setMyPokemons } = useContext(MyPokemonStorage);
+
+  function onDelete(e) {
+    e.preventDefault();
+    console.log("masuk delete ", nickname);
+    setMyPokemons((prev) => {
+      const mutablemap = new Map(prev);
+      mutablemap.delete(nickname);
+      return mutablemap;
+    });
+  }
+
   return (
     <Link to={`/${name}`}>
       <div className="cardContainer">
-        <img src={image} alt="pokeImg"></img>
-        <div>
-          <p>{name}</p>
-          <p>#{id}</p>
-          {/* <p>caught</p> */}
+        <div className="cardDetailsContainer">
+          <img src={image} alt="pokeImg"></img>
+          <div>
+            {nickname ? (
+              <div className="cardActionContainer">
+                <p>{nickname}</p>
+                <button onClick={onDelete}>release</button>
+              </div>
+            ) : (
+              <Fragment>
+                <p>{name}</p>
+                <p>#{id}</p>
+              </Fragment>
+            )}
+          </div>
         </div>
       </div>
     </Link>

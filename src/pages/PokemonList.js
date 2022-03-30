@@ -4,7 +4,7 @@ import { useQuery, gql } from "@apollo/client";
 
 import Card from "../components/Card";
 import { useContext } from "react";
-import { PokemonStorage } from "../PageRoutes";
+import { MyPokemonStorage } from "../PageRoutes";
 
 const POKEMON_LIST = gql`
   query pokemonlist {
@@ -21,16 +21,16 @@ const POKEMON_LIST = gql`
 
 function PokemonList() {
   const { loading, error, data } = useQuery(POKEMON_LIST);
-  const context = useContext(PokemonStorage);
+  const { myPokemons } = useContext(MyPokemonStorage);
 
   if (loading) return <span>LOADING.......</span>;
   if (error) return <span>ERROR FETCHING POKEMON LIST</span>;
 
   const list = data.pokemons.results;
-
+  console.log("PokeList context: ", myPokemons, myPokemons.size);
   return (
     <div className="container">
-      <p>Total owned: {context.greet.hi.length}</p>
+      <p>Total owned: {myPokemons.size}</p>
       <div className="cardsContainer">
         {list.map((pokemon) => {
           return (
