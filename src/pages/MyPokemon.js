@@ -1,4 +1,6 @@
 import { useContext } from "react";
+import Sound from "react-sound";
+import pokedutSong from "../chill.mp3";
 
 import Card from "../components/Card";
 import { MyPokemonStorage } from "../PageRoutes";
@@ -29,6 +31,7 @@ function MyPokemon() {
     <div className="container">
       <p>My pokemons</p>
       <div className="cardsContainer">{cardsArray()}</div>
+      <Sound url={pokedutSong} playStatus={"PLAYING"} loop={true} volume={50} />
     </div>
   );
 }

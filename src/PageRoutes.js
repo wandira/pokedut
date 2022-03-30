@@ -10,6 +10,7 @@ import MyPokemon from "./pages/MyPokemon";
 
 //SHARED CONTEXT, PERSIST TO LOCAL STORAGE
 import { createContext, useEffect, useMemo, useState } from "react";
+import Footer from "./components/Footer";
 export const MyPokemonStorage = createContext();
 
 const charoDetails = {
@@ -52,6 +53,7 @@ const PageRoutes = () => {
           <Route path="/mypokemon" element={<MyPokemon />} />
         </Routes>
       </MyPokemonStorage.Provider>
+      <Footer />
     </BrowserRouter>
   );
 };

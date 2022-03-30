@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div>
+    <div className="navbarContainer">
       <h1>Pokedut</h1>
       <Link to="/">
         <button>Pokemon List</button>

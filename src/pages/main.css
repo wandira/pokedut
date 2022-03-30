@@ -40,6 +40,24 @@ a {
   color: inherit;
 }
 
+.navbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: antiquewhite;
+  margin-top: 50px;
+}
+
 .container {
   display: flex;
   flex-direction: column;
