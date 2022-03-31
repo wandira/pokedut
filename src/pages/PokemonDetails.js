@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import "./main.css";
 
 import Sound from "react-sound";
-import pokedutSong from "../gotcha.mp3";
+import pokedutSong from "../song/gotcha.mp3";
 
 import { useQuery, gql } from "@apollo/client";
 import { useState } from "react";
@@ -34,12 +34,13 @@ const POKEMON = gql`
 
 function PokemonDetails() {
   const { pokemonName } = useParams();
-  const { setMyPokemons } = useContext(MyPokemonStorage);
+  const { myPokemons, setMyPokemons } = useContext(MyPokemonStorage);
   const { loading, error, data } = useQuery(POKEMON, {
     variables: { name: pokemonName },
   });
-  const [success, setSuccess] = useState(undefined);
+  const [success, setSuccess] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [nicknameUniqueness, setNicknameUniqueness] = useState(true);
 
   if (loading) return <span>LOADING.......</span>;
   if (error) return <span>ERROR FETCHING POKEMON DETAILS</span>;
@@ -60,13 +61,18 @@ function PokemonDetails() {
       name,
       image: sprites.front_default,
     };
-    setSuccess((prev) => !prev);
-    setMyPokemons((prev) => {
-      const mutable = new Map(prev);
-      mutable.set(`${nickname}`, pokeDetails);
-      return mutable;
-    });
-    setNickname("");
+    if (myPokemons.has(`${nickname}`)) {
+      setNicknameUniqueness(false);
+    } else {
+      setSuccess((prev) => !prev);
+      setMyPokemons((prev) => {
+        const mutable = new Map(prev);
+        mutable.set(`${nickname}`, pokeDetails);
+        return mutable;
+      });
+      setNickname("");
+      setNicknameUniqueness(true);
+    }
   }
 
   return (
@@ -85,6 +91,9 @@ function PokemonDetails() {
         {success ? (
           <div>
             <p>pokemon caught</p>
+            {!nicknameUniqueness && (
+              <p>nickname already exist. pick another nickname</p>
+            )}
             <input
               type="text"
               maxLength={15}

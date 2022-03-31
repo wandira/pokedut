@@ -1,6 +1,6 @@
 import "./main.css";
 import Sound from "react-sound";
-import pokedutSong from "../pokesong.mp3";
+import pokedutSong from "../song/pokesong.mp3";
 import { useQuery, gql } from "@apollo/client";
 
 import Card from "../components/Card";

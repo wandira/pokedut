@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Sound from "react-sound";
-import pokedutSong from "../chill.mp3";
+import pokedutSong from "../song/chill.mp3";
 
 import Card from "../components/Card";
 import { MyPokemonStorage } from "../PageRoutes";
