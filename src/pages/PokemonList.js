@@ -51,6 +51,11 @@ const paginationContainer = css({
   },
 });
 
+const notification = css({
+  textAlign: "center",
+  margin: 50,
+});
+
 function PokemonList() {
   const [queryVariable, setQueryVariable] = useState({
     offset: 0,
@@ -61,8 +66,8 @@ function PokemonList() {
   });
   const { myPokemons } = useContext(MyPokemonStorage);
 
-  if (loading) return <span>LOADING.......</span>;
-  if (error) return <span>ERROR FETCHING POKEMON LIST</span>;
+  if (loading) return <p css={notification}>LOADING.......</p>;
+  if (error) return <p css={notification}>ERROR FETCHING POKEMON LIST</p>;
 
   function onPrev() {
     setQueryVariable((prev) => {

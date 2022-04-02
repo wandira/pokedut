@@ -67,6 +67,11 @@ const detailsContainer = css({
   },
 });
 
+const notification = css({
+  textAlign: "center",
+  margin: 50,
+});
+
 function PokemonDetails() {
   const { pokemonName } = useParams();
   const { myPokemons, setMyPokemons } = useContext(MyPokemonStorage);
@@ -77,8 +82,8 @@ function PokemonDetails() {
   const [nickname, setNickname] = useState("");
   const [nicknameUniqueness, setNicknameUniqueness] = useState(true);
 
-  if (loading) return <span>LOADING.......</span>;
-  if (error) return <span>ERROR FETCHING POKEMON DETAILS</span>;
+  if (loading) return <p css={notification}>LOADING.......</p>;
+  if (error) return <p css={notification}>ERROR FETCHING POKEMON DETAILS</p>;
 
   function catchPokemon() {
     if (Math.random() < 0.5) {
