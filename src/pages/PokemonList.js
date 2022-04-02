@@ -1,4 +1,5 @@
-import "./main.css";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import Sound from "react-sound";
 import pokedutSong from "../song/pokesong.mp3";
 import { useQuery, gql } from "@apollo/client";
@@ -19,6 +20,25 @@ const POKEMON_LIST = gql`
     }
   }
 `;
+
+const container = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const cardsContainer = css({
+  display: "flex",
+  flexDirection: "column",
+  rowGap: 15,
+  width: "80%",
+  "@media(min-width: 768px)": {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
+    gridGap: 10,
+  },
+});
 
 function PokemonList() {
   const [queryVariable, setQueryVariable] = useState({
@@ -54,15 +74,15 @@ function PokemonList() {
   const list = data.pokemons.results;
   console.log("PokeList context: ", myPokemons, myPokemons.size);
   return (
-    <div className="container">
+    <div css={container}>
       <p>Total owned: {myPokemons.size}</p>
-      <button disabled={queryVariable.offset == 0} onClick={onPrev}>
+      <button disabled={queryVariable.offset === 0} onClick={onPrev}>
         prev
       </button>
       <button disabled={queryVariable.offset > 869} onClick={onNext}>
         next
       </button>
-      <div className="cardsContainer">
+      <div css={cardsContainer}>
         {list.map((pokemon) => {
           return (
             <Card

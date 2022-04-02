@@ -1,7 +1,31 @@
-import React, { Fragment, useContext } from "react";
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { MyPokemonStorage } from "../PageRoutes";
+
+const cardContainer = css`
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 44px;
+  row-gap: 15px;
+  width: 100%;
+  background-color: cornsilk;
+`;
+
+const onHoverBurlywood = css({
+  "&:hover": {
+    backgroundColor: "burlywood",
+  },
+});
+
+const cardDetailsContainer = css`
+  display: flex;
+  flex-direction: row;
+  min-width: 220px;
+`;
 
 function Card({ image, name, id, nickname = null }) {
   const { setMyPokemons } = useContext(MyPokemonStorage);
@@ -18,22 +42,22 @@ function Card({ image, name, id, nickname = null }) {
 
   return (
     <Link to={`/${name}`}>
-      <div className="cardContainer">
-        <div className="cardDetailsContainer">
-          <img src={image} alt="pokeImg"></img>
-          <div>
-            {nickname ? (
-              <div className="cardActionContainer">
-                <p>{nickname}</p>
-                <button onClick={onDelete}>release</button>
-              </div>
-            ) : (
-              <Fragment>
-                <p>{name}</p>
-                <p>#{id}</p>
-              </Fragment>
-            )}
+      <div css={[cardContainer, onHoverBurlywood]}>
+        <div css={cardDetailsContainer}>
+          <div css={css({ flexGrow: 1 })}>
+            <img css={css({ width: "100%" })} src={image} alt="pokeImg"></img>
           </div>
+          {nickname ? (
+            <div>
+              <p>{nickname}</p>
+              <button onClick={onDelete}>release</button>
+            </div>
+          ) : (
+            <div>
+              <p>{name}</p>
+              <p>#{id}</p>
+            </div>
+          )}
         </div>
       </div>
     </Link>

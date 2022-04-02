@@ -1,3 +1,7 @@
+/** @jsxImportSource @emotion/react */
+import { Global, css } from "@emotion/react";
+import globalStyles from "./globalStyles";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //NAVBAR
@@ -54,6 +58,7 @@ const PageRoutes = () => {
         </Routes>
       </MyPokemonStorage.Provider>
       <Footer />
+      <Global styles={css(globalStyles)} />
     </BrowserRouter>
   );
 };

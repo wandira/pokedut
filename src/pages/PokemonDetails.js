@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { useParams } from "react-router-dom";
-import "./main.css";
 
 import Sound from "react-sound";
 import pokedutSong from "../song/gotcha.mp3";
@@ -31,6 +32,40 @@ const POKEMON = gql`
     }
   }
 `;
+
+const pokemonDetailsContainer = css(
+  css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  `,
+  {
+    "@media (min-width: 992px)": {
+      flexDirection: "row",
+      padding: "10px 5vw",
+    },
+  }
+);
+
+const imageContainer = css({
+  width: "70vw",
+  "@media (min-width: 992px)": {
+    flex: "1 1 auto",
+    width: "unset",
+  },
+});
+
+const sprite = css({
+  width: "100%",
+});
+
+const detailsContainer = css({
+  "@media (min-width: 992px)": {
+    flex: "1.5",
+  },
+});
 
 function PokemonDetails() {
   const { pokemonName } = useParams();
@@ -76,16 +111,16 @@ function PokemonDetails() {
   }
 
   return (
-    <div className="pokemonDetailsContainer">
+    <div css={pokemonDetailsContainer}>
       <Sound
         url={pokedutSong}
         playStatus={success ? "PLAYING" : "STOPPED"}
         volume={80}
       />
-      <div className="imageContainer">
-        <img src={sprites.front_default} className="sprite" alt="sprite"></img>
+      <div css={imageContainer}>
+        <img css={sprite} src={sprites.front_default} alt="sprite"></img>
       </div>
-      <div className="detailsContainer">
+      <div css={detailsContainer}>
         <h2>{name}</h2>
         <h5>#{id}</h5>
         {success ? (
