@@ -44,8 +44,8 @@ function Card({ image, name, id, nickname = null }) {
     <Link to={`/${name}`}>
       <div css={[cardContainer, onHoverBurlywood]}>
         <div css={cardDetailsContainer}>
-          <div css={css({ flexBasis: 96 })}>
-            <img src={image} alt="pokeImg"></img>
+          <div>
+            <img width="96px" height="96px" src={image} alt="pokeImg"></img>
           </div>
           {nickname ? (
             <div>

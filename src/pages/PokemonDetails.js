@@ -58,6 +58,7 @@ const imageContainer = css({
 });
 
 const sprite = css({
+  height: "100%",
   width: "100%",
 });
 
@@ -123,7 +124,13 @@ function PokemonDetails() {
         volume={80}
       />
       <div css={imageContainer}>
-        <img css={sprite} src={sprites.front_default} alt="sprite"></img>
+        <img
+          css={sprite}
+          width="200px"
+          height="200px"
+          src={sprites.front_default}
+          alt="sprite"
+        ></img>
       </div>
       <div css={detailsContainer}>
         <h2>{name}</h2>

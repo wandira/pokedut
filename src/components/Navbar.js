@@ -37,6 +37,7 @@ const active = css({
 
 function Navbar() {
   const { pathname } = useLocation();
+  const onLandingPage = pathname === "/";
   const onMyPokemonPage = pathname === "/mypokemon";
 
   return (
@@ -44,7 +45,7 @@ function Navbar() {
       <h1>Pokedut</h1>
       <div css={navLinkContainer}>
         <Link to="/">
-          <div css={!onMyPokemonPage && active}>Pokemon List</div>
+          <div css={onLandingPage && active}>Pokemon List</div>
         </Link>
         <Link to="/mypokemon">
           <div css={onMyPokemonPage && active}>My Pokemon</div>
