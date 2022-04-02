@@ -6,7 +6,7 @@ import Sound from "react-sound";
 import pokedutSong from "../song/gotcha.mp3";
 
 import { useQuery, gql } from "@apollo/client";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { useContext } from "react";
 import { MyPokemonStorage } from "../PageRoutes";
@@ -73,6 +73,13 @@ const notification = css({
   margin: 50,
 });
 
+const borderRed = css({
+  border: "2px solid red",
+});
+const colorRed = css({
+  color: "red",
+});
+
 function PokemonDetails() {
   const { pokemonName } = useParams();
   const { myPokemons, setMyPokemons } = useContext(MyPokemonStorage);
@@ -116,6 +123,18 @@ function PokemonDetails() {
     }
   }
 
+  const nicknameContainer = css(
+    {
+      height: 50,
+      width: "100%",
+      display: "flex",
+      "& > *": {
+        flex: "1 1 auto",
+      },
+    },
+    !nicknameUniqueness && borderRed
+  );
+
   return (
     <div css={pokemonDetailsContainer}>
       <Sound
@@ -134,28 +153,34 @@ function PokemonDetails() {
       </div>
       <div css={detailsContainer}>
         <h2>{name}</h2>
-        <h5>#{id}</h5>
+        <h3>#{id}</h3>
         {success ? (
-          <div>
-            <p>pokemon caught</p>
+          <Fragment>
+            <p>pokemon caught!</p>
+            <div css={nicknameContainer}>
+              <input
+                type="text"
+                maxLength={15}
+                placeholder="ucup"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              ></input>
+              <button onClick={savePokemon}>save pokemon</button>
+            </div>
             {!nicknameUniqueness && (
-              <p>nickname already exist. pick another nickname</p>
+              <p css={colorRed}>
+                nickname already exist. pick another nickname
+              </p>
             )}
-            <input
-              type="text"
-              maxLength={15}
-              placeholder="enter nickname"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            ></input>
-            <button onClick={savePokemon}>Save pokemon</button>
-          </div>
+          </Fragment>
         ) : (
-          <button onClick={catchPokemon}>CATCH!</button>
+          <div css={nicknameContainer}>
+            <button onClick={catchPokemon}>CATCH!</button>
+          </div>
         )}
-        <h5>Pokemon Type:</h5>
+        <h4>Pokemon Type:</h4>
         <div>{types.map((type) => type.type.name).join(", ")}</div>
-        <h5>Pokemon Moves:</h5>
+        <h4>Pokemon Moves:</h4>
         <div>{moves.map((move) => move.move.name).join(", ")}</div>
       </div>
     </div>

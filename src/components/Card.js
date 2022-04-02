@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import { MyPokemonStorage } from "../PageRoutes";
 
-const cardContainer = css`
+const cardContainer = css(
+  `
   display: flex;
   flex-direction: row;
   border: 1px solid black;
@@ -13,7 +14,15 @@ const cardContainer = css`
   row-gap: 15px;
   width: 100%;
   background-color: cornsilk;
-`;
+  justify-content: space-between;
+  align-items: center;
+`,
+  {
+    "& > *": {
+      flex: "1",
+    },
+  }
+);
 
 const onHoverBurlywood = css({
   "&:hover": {
@@ -25,6 +34,8 @@ const cardDetailsContainer = css`
   display: flex;
   flex-direction: row;
   min-width: 220px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 function Card({ image, name, id, nickname = null }) {
@@ -43,23 +54,27 @@ function Card({ image, name, id, nickname = null }) {
   return (
     <Link to={`/${name}`}>
       <div css={[cardContainer, onHoverBurlywood]}>
-        <div css={cardDetailsContainer}>
-          <div>
-            <img width="96px" height="96px" src={image} alt="pokeImg"></img>
-          </div>
-          {nickname ? (
+        {/* <div css={cardDetailsContainer}> */}
+        <div>
+          <img width="96px" height="96px" src={image} alt="pokeImg"></img>
+        </div>
+        {nickname ? (
+          <Fragment>
             <div>
               <p>{nickname}</p>
+            </div>
+            <div>
               <button onClick={onDelete}>release</button>
             </div>
-          ) : (
-            <div>
-              <p>{name}</p>
-              <p>#{id}</p>
-            </div>
-          )}
-        </div>
+          </Fragment>
+        ) : (
+          <div>
+            <p>{name}</p>
+            <p>#{id}</p>
+          </div>
+        )}
       </div>
+      {/* </div> */}
     </Link>
   );
 }

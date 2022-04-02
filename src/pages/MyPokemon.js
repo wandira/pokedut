@@ -22,7 +22,7 @@ const cardsContainer = css({
   marginTop: 30,
   "@media(min-width: 768px)": {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    gridTemplateColumns: "1fr 1fr",
     gridGap: 10,
   },
 });
