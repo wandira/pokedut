@@ -40,6 +40,17 @@ const cardsContainer = css({
   },
 });
 
+const paginationContainer = css({
+  display: "flex",
+  width: "80%",
+  justifyContent: "space-between",
+  margin: 20,
+  "& > button": {
+    height: 45,
+    width: "20%",
+  },
+});
+
 function PokemonList() {
   const [queryVariable, setQueryVariable] = useState({
     offset: 0,
@@ -75,13 +86,16 @@ function PokemonList() {
   console.log("PokeList context: ", myPokemons, myPokemons.size);
   return (
     <div css={container}>
-      <p>Total owned: {myPokemons.size}</p>
-      <button disabled={queryVariable.offset === 0} onClick={onPrev}>
-        prev
-      </button>
-      <button disabled={queryVariable.offset > 869} onClick={onNext}>
-        next
-      </button>
+      <div css={paginationContainer}>
+        <button disabled={queryVariable.offset === 0} onClick={onPrev}>
+          ←
+        </button>
+        <p>Total owned: {myPokemons.size}</p>
+        <button disabled={queryVariable.offset > 869} onClick={onNext}>
+          →
+        </button>
+      </div>
+
       <div css={cardsContainer}>
         {list.map((pokemon) => {
           return (

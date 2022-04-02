@@ -19,6 +19,7 @@ const cardsContainer = css({
   flexDirection: "column",
   rowGap: 15,
   width: "80%",
+  marginTop: 30,
   "@media(min-width: 768px)": {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
@@ -49,8 +50,11 @@ function MyPokemon() {
 
   return (
     <div css={container}>
-      <p>My pokemons</p>
-      <div css={cardsContainer}>{cardsArray()}</div>
+      {myPokemons.size ? (
+        <div css={cardsContainer}>{cardsArray()}</div>
+      ) : (
+        <p>You have no pokemon. Go catch some!</p>
+      )}
       <Sound url={pokedutSong} playStatus={"PLAYING"} loop={true} volume={50} />
     </div>
   );
