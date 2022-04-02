@@ -30,14 +30,6 @@ const onHoverBurlywood = css({
   },
 });
 
-const cardDetailsContainer = css`
-  display: flex;
-  flex-direction: row;
-  min-width: 220px;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 function Card({ image, name, id, nickname = null }) {
   const { setMyPokemons } = useContext(MyPokemonStorage);
 
@@ -54,7 +46,6 @@ function Card({ image, name, id, nickname = null }) {
   return (
     <Link to={`/${name}`}>
       <div css={[cardContainer, onHoverBurlywood]}>
-        {/* <div css={cardDetailsContainer}> */}
         <div>
           <img width="96px" height="96px" src={image} alt="pokeImg"></img>
         </div>
@@ -74,7 +65,6 @@ function Card({ image, name, id, nickname = null }) {
           </div>
         )}
       </div>
-      {/* </div> */}
     </Link>
   );
 }
