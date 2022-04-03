@@ -26,24 +26,36 @@ const charoDetails = {
 
 const PageRoutes = () => {
   const [myPokemons, setMyPokemons] = useState(
-    new Map([["charoo", charoDetails]])
+    new Map([["my starter", charoDetails]])
   );
+  const [caughtPokemonIds, setCaughtPokemonIds] = useState(new Set([4]));
 
   //RUN ONLY ONCE AFTER RENDER, PREFILL FROM LOCALSTORAGE
   useEffect(() => {
     const data = localStorage.getItem("pokedut6");
+    const data2 = localStorage.getItem("pokedut6-set");
     if (data) {
       setMyPokemons(new Map(JSON.parse(data)));
+      setCaughtPokemonIds(new Set(JSON.parse(data2)));
     }
   }, []);
 
   //UPDATES LOCALSTORAGE EVERYTIME myPokemons CHANGES
   useEffect(() => {
     localStorage.setItem("pokedut6", JSON.stringify([...myPokemons]));
+    localStorage.setItem("pokedut6-set", JSON.stringify([...caughtPokemonIds]));
   });
 
   //THE VALUE THAT WILL BE PASSED THROUGH CONTEXT
-  const value = useMemo(() => ({ myPokemons, setMyPokemons }), [myPokemons]);
+  const value = useMemo(
+    () => ({
+      myPokemons,
+      setMyPokemons,
+      caughtPokemonIds,
+      setCaughtPokemonIds,
+    }),
+    [myPokemons]
+  );
 
   return (
     <BrowserRouter>

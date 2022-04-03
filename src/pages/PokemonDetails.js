@@ -78,7 +78,8 @@ const failStreakStyle = css({
 
 function PokemonDetails() {
   const { pokemonName } = useParams();
-  const { myPokemons, setMyPokemons } = useContext(MyPokemonStorage);
+  const { myPokemons, setMyPokemons, setCaughtPokemonIds } =
+    useContext(MyPokemonStorage);
   const { loading, error, data } = useQuery(POKEMON, {
     variables: { name: pokemonName },
   });
@@ -126,6 +127,11 @@ function PokemonDetails() {
       setMyPokemons((prev) => {
         const mutable = new Map(prev);
         mutable.set(`${nickname}`, pokeDetails);
+        return mutable;
+      });
+      setCaughtPokemonIds((prev) => {
+        const mutable = new Set(prev);
+        mutable.add(id);
         return mutable;
       });
       setNickname("");

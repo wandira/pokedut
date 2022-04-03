@@ -35,7 +35,7 @@ const releaseBtn = css({
 });
 
 function Card({ image, name, id, nickname = null }) {
-  const { setMyPokemons } = useContext(MyPokemonStorage);
+  const { setMyPokemons, caughtPokemonIds } = useContext(MyPokemonStorage);
 
   function onDelete(e) {
     e.preventDefault();
@@ -46,9 +46,15 @@ function Card({ image, name, id, nickname = null }) {
     });
   }
 
+  function caughtStyle() {
+    if (caughtPokemonIds.has(id) && !nickname) {
+      return css({ backgroundColor: "lightgreen" });
+    }
+  }
+
   return (
     <Link to={`/${name}`}>
-      <div css={[cardContainer, onHoverBurlywood]}>
+      <div css={[cardContainer, onHoverBurlywood, caughtStyle()]}>
         <div>
           <img width="96px" height="96px" src={image} alt="pokeImg"></img>
         </div>

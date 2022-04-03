@@ -61,7 +61,7 @@ function PokemonList() {
   const { loading, error, data } = useQuery(POKEMON_LIST, {
     variables: queryVariable,
   });
-  const { myPokemons } = useContext(MyPokemonStorage);
+  const { myPokemons, caughtPokemonIds } = useContext(MyPokemonStorage);
 
   if (loading)
     return (
@@ -93,7 +93,7 @@ function PokemonList() {
       };
     });
   }
-
+  console.log("caugt", caughtPokemonIds);
   const list = data.pokemons.results;
   return (
     <div css={container}>
@@ -101,7 +101,7 @@ function PokemonList() {
         <button disabled={queryVariable.offset === 0} onClick={onPrev}>
           ←
         </button>
-        <p>Total owned: {myPokemons.size}</p>
+        <p>Total caught type: {caughtPokemonIds.size}</p>
         <button disabled={queryVariable.offset > 869} onClick={onNext}>
           →
         </button>
