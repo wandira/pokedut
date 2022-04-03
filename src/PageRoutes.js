@@ -33,14 +33,12 @@ const PageRoutes = () => {
   useEffect(() => {
     const data = localStorage.getItem("pokedut6");
     if (data) {
-      console.log("update state");
       setMyPokemons(new Map(JSON.parse(data)));
     }
   }, []);
 
   //UPDATES LOCALSTORAGE EVERYTIME myPokemons CHANGES
   useEffect(() => {
-    console.log("update storage");
     localStorage.setItem("pokedut6", JSON.stringify([...myPokemons]));
   });
 

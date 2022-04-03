@@ -11,28 +11,7 @@ import { Fragment, useState } from "react";
 import { useContext } from "react";
 import { MyPokemonStorage } from "../PageRoutes";
 import Moves from "../components/Moves";
-
-const POKEMON = gql`
-  query pokemon($name: String!) {
-    pokemon(name: $name) {
-      id
-      name
-      sprites {
-        front_default
-      }
-      moves {
-        move {
-          name
-        }
-      }
-      types {
-        type {
-          name
-        }
-      }
-    }
-  }
-`;
+import POKEMON from "../queries/pokemon";
 
 const pokemonDetailsContainer = css(
   css`
@@ -43,8 +22,9 @@ const pokemonDetailsContainer = css(
     padding: 20px;
   `,
   {
-    "@media (min-width: 992px)": {
+    "@media (min-width: 768px)": {
       flexDirection: "row",
+      alignItems: "flex-start",
       padding: "10px 5vw",
     },
   }
@@ -52,7 +32,7 @@ const pokemonDetailsContainer = css(
 
 const imageContainer = css({
   width: "70vw",
-  "@media (min-width: 992px)": {
+  "@media (min-width: 768px)": {
     flex: "1 1 auto",
     width: "unset",
   },
@@ -80,6 +60,9 @@ const borderRed = css({
 const colorRed = css({
   color: "red",
 });
+const failStreakStyle = css({
+  color: "blue",
+});
 
 function PokemonDetails() {
   const { pokemonName } = useParams();
@@ -88,30 +71,44 @@ function PokemonDetails() {
     variables: { name: pokemonName },
   });
   const [success, setSuccess] = useState(false);
+  const [failStreak, setFailStreak] = useState(0);
   const [nickname, setNickname] = useState("");
-  const [nicknameUniqueness, setNicknameUniqueness] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  if (loading) return <p css={notification}>LOADING.......</p>;
-  if (error) return <p css={notification}>ERROR FETCHING POKEMON DETAILS</p>;
+  if (loading)
+    return (
+      <div>
+        <p css={notification}>LOADING.......</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div>
+        <p css={[notification, colorRed]}>ERROR FETCHING POKEMON DETAILS</p>
+      </div>
+    );
 
   function catchPokemon() {
-    if (Math.random() < 0.5) {
+    if (Math.random() < 0.2) {
+      setFailStreak(0);
       setSuccess(true);
     } else {
+      setFailStreak((prev) => prev + 1);
       setSuccess(false);
     }
   }
   const { id, name, moves, types, sprites } = data.pokemon;
 
   function savePokemon() {
-    console.log(nickname);
     const pokeDetails = {
       id,
       name,
       image: sprites.front_default,
     };
     if (myPokemons.has(`${nickname}`)) {
-      setNicknameUniqueness(false);
+      setErrorMessage("nickname must be unique!");
+    } else if (nickname.length === 0) {
+      setErrorMessage("nickname must be filled!");
     } else {
       setSuccess((prev) => !prev);
       setMyPokemons((prev) => {
@@ -120,7 +117,7 @@ function PokemonDetails() {
         return mutable;
       });
       setNickname("");
-      setNicknameUniqueness(true);
+      setErrorMessage("");
     }
   }
 
@@ -133,8 +130,14 @@ function PokemonDetails() {
         flex: "1 1 auto",
       },
     },
-    !nicknameUniqueness && borderRed
+    errorMessage.length > 0 && borderRed
   );
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      savePokemon();
+    }
+  };
 
   return (
     <div css={pokemonDetailsContainer}>
@@ -157,7 +160,7 @@ function PokemonDetails() {
         <h3>#{id}</h3>
         {success ? (
           <Fragment>
-            <p>pokemon caught!</p>
+            <p>{name} caught!</p>
             <div css={nicknameContainer}>
               <input
                 type="text"
@@ -165,19 +168,21 @@ function PokemonDetails() {
                 placeholder="ucup"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
+                onKeyDown={handleKeyDown}
               ></input>
               <button onClick={savePokemon}>save pokemon</button>
             </div>
-            {!nicknameUniqueness && (
-              <p css={colorRed}>
-                nickname already exist. pick another nickname
-              </p>
-            )}
+            <p css={colorRed}>{errorMessage}</p>
           </Fragment>
         ) : (
           <div css={nicknameContainer}>
             <button onClick={catchPokemon}>CATCH!</button>
           </div>
+        )}
+        {failStreak > 0 && (
+          <p css={failStreakStyle}>
+            {name} fled... try again! fail streak: {failStreak}
+          </p>
         )}
         <h4>Pokemon Type:</h4>
         <div>{types.map((type) => type.type.name).join(", ")}</div>

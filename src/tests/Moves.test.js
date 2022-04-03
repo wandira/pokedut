@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Moves from "./Moves";
+import Moves from "../components/Moves";
 
 describe("Moves component should render given moves", () => {
   it("renders moves from props", () => {

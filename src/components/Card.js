@@ -39,7 +39,6 @@ function Card({ image, name, id, nickname = null }) {
 
   function onDelete(e) {
     e.preventDefault();
-    console.log("masuk delete ", nickname);
     setMyPokemons((prev) => {
       const mutablemap = new Map(prev);
       mutablemap.delete(nickname);

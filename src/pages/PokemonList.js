@@ -7,19 +7,7 @@ import { useQuery, gql } from "@apollo/client";
 import Card from "../components/Card";
 import { useState, useContext } from "react";
 import { MyPokemonStorage } from "../PageRoutes";
-
-const POKEMON_LIST = gql`
-  query pokemonlist($offset: Int, $limit: Int) {
-    pokemons(offset: $offset, limit: $limit) {
-      results {
-        id
-        name
-        url
-        image
-      }
-    }
-  }
-`;
+import POKEMON_LIST from "../queries/pokemonList.js";
 
 const container = css`
   display: flex;
@@ -66,8 +54,18 @@ function PokemonList() {
   });
   const { myPokemons } = useContext(MyPokemonStorage);
 
-  if (loading) return <p css={notification}>LOADING.......</p>;
-  if (error) return <p css={notification}>ERROR FETCHING POKEMON LIST</p>;
+  if (loading)
+    return (
+      <div>
+        <p css={notification}>LOADING.......</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div>
+        <p css={notification}>ERROR FETCHING POKEMON LIST</p>
+      </div>
+    );
 
   function onPrev() {
     setQueryVariable((prev) => {
@@ -88,7 +86,6 @@ function PokemonList() {
   }
 
   const list = data.pokemons.results;
-  console.log("PokeList context: ", myPokemons, myPokemons.size);
   return (
     <div css={container}>
       <div css={paginationContainer}>
