@@ -2,9 +2,10 @@
 import { css } from "@emotion/react";
 import Sound from "react-sound";
 import pokedutSong from "../song/pokesong.mp3";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import Card from "../components/Card";
+import FadeIn from "react-fade-in/lib/FadeIn";
 import { useState, useContext } from "react";
 import { MyPokemonStorage } from "../PageRoutes";
 import POKEMON_LIST from "../queries/pokemonList.js";
@@ -21,10 +22,13 @@ const cardsContainer = css({
   flexDirection: "column",
   rowGap: 15,
   width: "80%",
-  "@media(min-width: 768px)": {
+  "@media(min-width: 576px)": {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    gridTemplateColumns: "1fr 1fr",
     gridGap: 10,
+  },
+  "@media(min-width: 768px)": {
+    gridTemplateColumns: "1fr 1fr 1fr",
   },
 });
 
@@ -36,6 +40,7 @@ const paginationContainer = css({
   "& > button": {
     height: 45,
     width: "20%",
+    fontWeight: "bolder",
   },
 });
 
@@ -98,7 +103,7 @@ function PokemonList() {
         </button>
       </div>
 
-      <div css={cardsContainer}>
+      <FadeIn css={cardsContainer}>
         {list.map((pokemon) => {
           return (
             <Card
@@ -109,7 +114,7 @@ function PokemonList() {
             />
           );
         })}
-      </div>
+      </FadeIn>
       <Sound url={pokedutSong} playStatus={"PLAYING"} loop={true} volume={50} />
     </div>
   );

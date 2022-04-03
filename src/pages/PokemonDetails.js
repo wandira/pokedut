@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Sound from "react-sound";
 import pokedutSong from "../song/gotcha.mp3";
 
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Fragment, useState } from "react";
 
 import { useContext } from "react";
