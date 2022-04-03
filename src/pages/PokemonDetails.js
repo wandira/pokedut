@@ -209,7 +209,6 @@ function PokemonDetails() {
           ))}
         </div>
         <h4>Pokemon Moves:</h4>
-        {/* <div>{moves.map((move) => move.move.name).join(", ")}</div> */}
         <Moves moves={moves} />
       </div>
     </div>

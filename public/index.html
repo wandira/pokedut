@@ -18,21 +18,10 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <p id="requireHTTPS" class="hidden">
-      <b>STOP!</b> This page <b>must</b> be served over HTTPS.
-      Please <a>reload this page via HTTPS</a>.
-    </p>
-    
     <div id="root"></div>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js');
-      }
-      if (window.location.protocol === 'http:') {
-        const requireHTTPS = document.getElementById('requireHTTPS');
-        const link = requireHTTPS.querySelector('a');
-        link.href = window.location.href.replace('http://', 'https://');
-        requireHTTPS.classList.remove('hidden');
       }
     </script>
   </body>
