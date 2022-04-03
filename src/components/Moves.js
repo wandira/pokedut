@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 const gridContainer = css`
   display: grid;
-  grid-template: auto auto / auto auto;
+  grid-template: auto auto auto / auto auto auto;
   gap: 15px;
 `;
 

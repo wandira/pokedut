@@ -13,7 +13,14 @@ import { MyPokemonStorage } from "../PageRoutes";
 import Moves from "../components/Moves";
 import POKEMON from "../queries/pokemon";
 
-const pokemonDetailsContainer = css(
+const pokemonDetailsContainer = css({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  padding: "10px 5vw",
+});
+
+const pokemonDetailsContainerr = css(
   css`
     display: flex;
     flex-direction: column;
@@ -24,8 +31,6 @@ const pokemonDetailsContainer = css(
   {
     "@media (min-width: 768px)": {
       flexDirection: "row",
-      alignItems: "flex-start",
-      padding: "10px 5vw",
     },
   }
 );
@@ -43,10 +48,15 @@ const sprite = css({
   width: "100%",
 });
 
-const detailsContainer = css({
-  "@media (min-width: 992px)": {
-    flex: "1.5",
+const profileContainer = css({
+  width: "70vw",
+  "@media (min-width: 768px)": {
+    flex: "2.5",
   },
+});
+
+const detailsContainer = css({
+  width: "70vw",
 });
 
 const notification = css({
@@ -57,9 +67,11 @@ const notification = css({
 const borderRed = css({
   border: "2px solid red",
 });
+
 const colorRed = css({
   color: "red",
 });
+
 const failStreakStyle = css({
   color: "blue",
 });
@@ -146,44 +158,48 @@ function PokemonDetails() {
         playStatus={success ? "PLAYING" : "STOPPED"}
         volume={80}
       />
-      <div css={imageContainer}>
-        <img
-          css={sprite}
-          width="200px"
-          height="200px"
-          src={sprites.front_default}
-          alt="sprite"
-        ></img>
+      <div css={pokemonDetailsContainerr}>
+        <div css={imageContainer}>
+          <img
+            css={sprite}
+            width="200px"
+            height="200px"
+            src={sprites.front_default}
+            alt="sprite"
+          ></img>
+        </div>
+        <div css={profileContainer}>
+          <h2>{name}</h2>
+          <h3>#{id}</h3>
+          {success ? (
+            <Fragment>
+              <p>{name} caught!</p>
+              <div css={nicknameContainer}>
+                <input
+                  type="text"
+                  maxLength={15}
+                  placeholder="ucup"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                ></input>
+                <button onClick={savePokemon}>save pokemon</button>
+              </div>
+              <p css={colorRed}>{errorMessage}</p>
+            </Fragment>
+          ) : (
+            <div css={nicknameContainer}>
+              <button onClick={catchPokemon}>CATCH!</button>
+            </div>
+          )}
+          {failStreak > 0 && (
+            <p css={failStreakStyle}>
+              {name} fled... try again! fail streak: {failStreak}
+            </p>
+          )}
+        </div>
       </div>
       <div css={detailsContainer}>
-        <h2>{name}</h2>
-        <h3>#{id}</h3>
-        {success ? (
-          <Fragment>
-            <p>{name} caught!</p>
-            <div css={nicknameContainer}>
-              <input
-                type="text"
-                maxLength={15}
-                placeholder="ucup"
-                value={nickname}
-                onChange={(e) => setNickname(e.target.value)}
-                onKeyDown={handleKeyDown}
-              ></input>
-              <button onClick={savePokemon}>save pokemon</button>
-            </div>
-            <p css={colorRed}>{errorMessage}</p>
-          </Fragment>
-        ) : (
-          <div css={nicknameContainer}>
-            <button onClick={catchPokemon}>CATCH!</button>
-          </div>
-        )}
-        {failStreak > 0 && (
-          <p css={failStreakStyle}>
-            {name} fled... try again! fail streak: {failStreak}
-          </p>
-        )}
         <h4>Pokemon Type:</h4>
         <div>{types.map((type) => type.type.name).join(", ")}</div>
         <h4>Pokemon Moves:</h4>
