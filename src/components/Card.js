@@ -30,6 +30,10 @@ const onHoverBurlywood = css({
   },
 });
 
+const releaseBtn = css({
+  height: 45,
+});
+
 function Card({ image, name, id, nickname = null }) {
   const { setMyPokemons } = useContext(MyPokemonStorage);
 
@@ -55,7 +59,9 @@ function Card({ image, name, id, nickname = null }) {
               <p>{nickname}</p>
             </div>
             <div>
-              <button onClick={onDelete}>release</button>
+              <button css={releaseBtn} onClick={onDelete}>
+                release
+              </button>
             </div>
           </Fragment>
         ) : (

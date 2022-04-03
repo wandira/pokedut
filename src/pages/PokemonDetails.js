@@ -10,6 +10,7 @@ import { Fragment, useState } from "react";
 
 import { useContext } from "react";
 import { MyPokemonStorage } from "../PageRoutes";
+import Moves from "../components/Moves";
 
 const POKEMON = gql`
   query pokemon($name: String!) {
@@ -181,7 +182,8 @@ function PokemonDetails() {
         <h4>Pokemon Type:</h4>
         <div>{types.map((type) => type.type.name).join(", ")}</div>
         <h4>Pokemon Moves:</h4>
-        <div>{moves.map((move) => move.move.name).join(", ")}</div>
+        {/* <div>{moves.map((move) => move.move.name).join(", ")}</div> */}
+        <Moves moves={moves} />
       </div>
     </div>
   );

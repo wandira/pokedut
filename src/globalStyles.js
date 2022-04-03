@@ -5,15 +5,12 @@ export default `body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: bisque;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-body {
-  background-color: bisque;
 }
 
 @media (max-width: 575px) {
@@ -36,21 +33,19 @@ body {
     font-size: 18px;
   }
 }
-.row {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-.col {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-img.logo {
-  width: 2rem;
-  height: auto;
-}
 
 a {
   text-decoration: inherit;
   color: inherit;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root div:nth-child(2){
+  flex: 1;
 }
 `;
