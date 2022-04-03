@@ -201,7 +201,13 @@ function PokemonDetails() {
       </div>
       <div css={detailsContainer}>
         <h4>Pokemon Type:</h4>
-        <div>{types.map((type) => type.type.name).join(", ")}</div>
+        <div>
+          {types.map((type) => (
+            <span className={`type-${type.type.name} t-type`}>
+              {type.type.name}
+            </span>
+          ))}
+        </div>
         <h4>Pokemon Moves:</h4>
         {/* <div>{moves.map((move) => move.move.name).join(", ")}</div> */}
         <Moves moves={moves} />

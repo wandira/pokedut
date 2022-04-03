@@ -49,6 +49,10 @@ const notification = css({
   margin: 50,
 });
 
+const colorRed = css({
+  color: "red",
+});
+
 function PokemonList() {
   const [queryVariable, setQueryVariable] = useState({
     offset: 0,
@@ -68,7 +72,7 @@ function PokemonList() {
   if (error)
     return (
       <div>
-        <p css={notification}>ERROR FETCHING POKEMON LIST</p>
+        <p css={[notification, colorRed]}>ERROR FETCHING POKEMON LIST</p>
       </div>
     );
 
