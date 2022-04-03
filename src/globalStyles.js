@@ -45,7 +45,7 @@ a {
   min-height: 100vh;
 }
 
-#root > div:nth-child(2){
+#root > div:nth-of-type(2){
   flex: 1;
 }
 `;
